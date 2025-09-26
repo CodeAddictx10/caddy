@@ -1,0 +1,21 @@
+version: "3.9"
+
+services:
+  caddy:
+    image: caddy:2.8
+    container_name: caddy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - ./sites:/etc/caddy/sites-enabled
+      - ./caddy_data:/data
+      - ./caddy_config:/config
+    networks:
+      - caddy_net
+
+networks:
+  caddy_net:
+    external: true
